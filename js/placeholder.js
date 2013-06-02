@@ -1,22 +1,6 @@
-// HTML5 placeholder plugin version 1.01
-// Copyright (c) 2010-The End of Time, Mike Taylor, http://miketaylr.com
-// MIT Licensed: http://www.opensource.org/licenses/mit-license.php
-//
-// Enables cross-browser HTML5 placeholder for inputs, by first testing
-// for a native implementation before building one.
-//
-//
-// USAGE: 
-//$('input[placeholder]').placeholder();
-
-// <input type="text" placeholder="username">
 (function ($) {
 	//feature detection
 	var hasPlaceholder = 'placeholder' in document.createElement('input');
-
-	//sniffy sniff sniff -- just to give extra left padding for the older
-	//graphics for type=email and type=url
-	var isOldOpera = $.browser.opera && $.browser.version < 10.5;
 
 	$.fn.placeholder = function (options) {
 		//merge in passed in options, if any
@@ -44,8 +28,7 @@
 			options.placeholderCSS['height'] = inputHeight;
 
 			// adjust position of placeholder
-			options.placeholderCSS['left'] = (isOldOpera && (this.type == 'email' || this.type == 'url')) ?
-				'11%' : o_left;
+			options.placeholderCSS['left'] = o_left;
 			placeholder.css(options.placeholderCSS);
 
 			//place the placeholder if the input is empty
@@ -54,7 +37,6 @@
 				$this.attr('id', inputId).after(placeholder);
 
 				if ($this[0].nodeName.toLowerCase() === "textarea") {
-					console.log($this.position().top);
 					placeholder.css("top", $this.position().top + 3);
 				}
 			}
